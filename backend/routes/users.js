@@ -5,26 +5,22 @@ const passport = require('passport');
 const AdminUser = require('../modal/admin');
 const Subscriber = require('../modal/subscribers');
 const nodemailer = require('nodemailer');
+const sendMail = require('sendmail')();
+const template = require('../view/mailTemplate');
 const {signRefreshToken, ensureAuthenticated} = require('../utilities/authService');
 
 
 router.get('/subscribe', async (req, res) => {
-    let testAccount = await nodemailer.createTestAccount();
-    let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-          user: testAccount.user, // generated ethereal user
-          pass: testAccount.pass, // generated ethereal password
-        },
-      });
-
-      transporter.sendMail({
+    const subs = await Subscriber.find()
+    var emailList = [];
+    for (let i = 0; i < subs.length; i++) {
+       emailList.push(subs[i].email);
+    }
+      sendMail({
         from: `Admin <no-reply@buddyest.com>`, // sender address
-        to: "imbittuk0@gmail.com", // list of receivers
-        subject: "Hello ✔", // Subject line
-        html: "<b>Hello world?</b>", // html body
+        to: 'imbittuk0@gmail.com', // list of receivers
+        subject: "Welcome on board", // Subject line
+        html: template, // html body
       }, (err, data) => {
           if(err) {
             return res.status(200).json({status: false, data: "Error"})
