@@ -11,11 +11,11 @@ const {signRefreshToken, ensureAuthenticated} = require('../utilities/authServic
 
 
 router.get('/subscribe', async (req, res) => {
-    const subs = await Subscriber.find()
-    var emailList = [];
-    for (let i = 0; i < subs.length; i++) {
-       emailList.push(subs[i].email);
-    }
+    // const subs = await Subscriber.find()
+    // var emailList = [];
+    // for (let i = 0; i < subs.length; i++) {
+    //    emailList.push(subs[i].email);
+    // }
       sendMail({
         from: `Admin <no-reply@buddyest.com>`, // sender address
         to: 'imbittuk0@gmail.com', // list of receivers
