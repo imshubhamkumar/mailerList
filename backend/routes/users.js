@@ -11,10 +11,12 @@ const {signRefreshToken, ensureAuthenticated} = require('../utilities/authServic
 router.get('/subscribe', async (req, res) => {
     let testAccount = await nodemailer.createTestAccount();
     let transporter = nodemailer.createTransport({
-        service: 'gmail', // true for 465, false for other ports
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false, // true for 465, false for other ports
         auth: {
-          user: 'imbittuk0@gmail.com', // generated ethereal user
-          pass: '20101995', // generated ethereal password
+          user: testAccount.user, // generated ethereal user
+          pass: testAccount.pass, // generated ethereal password
         },
       });
 
