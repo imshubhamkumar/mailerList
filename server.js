@@ -48,17 +48,17 @@ mongoose
 const server = http.createServer(app)
 app.use(express.json());
 app.use("/users", AppRoutes);
-if(process.env.NODE_ENV=="production"){
-  app.use(express.static('frontend/build'))
-  const path = require('path')
-  app.get("*",(req,res)=>{
-      res.sendFile(path.resolve(__dirname,'client','frontend','index.html'))
-  })
-} else{
-  app.get('/', (req, res) => {
-    res.send("Server up and running!")
-})
-}
+// if(process.env.NODE_ENV=="production"){
+//   app.use(express.static('frontend/build'))
+//   const path = require('path')
+//   app.get("*",(req,res)=>{
+//       res.sendFile(path.resolve(__dirname,'client','frontend','index.html'))
+//   })
+// } else{
+//   app.get('/', (req, res) => {
+//     res.send("Server up and running!")
+// })
+// }
 server.listen(port, () => {
     console.log("Server Started at port " + port);
     console.log("http://localhost:" + port);
