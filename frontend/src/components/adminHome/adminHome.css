@@ -1,0 +1,38 @@
+.mail-card {
+    margin: 10em auto;
+    width: 80rem;
+}
+.editorClassName {
+    border: 1px solid #f1f1f1;
+    border-radius: 2px;
+    padding: 0 1rem;
+    min-height: 20rem;
+}
+
+.wrapperClassName {
+    border: 0.5px solid #ff80ff;
+    padding: 1rem;
+}
+
+.submit {
+    cursor: pointer;
+      border-radius: 5em;
+      color: #ffffff !important;
+      text-decoration: none !important;
+      background: linear-gradient(to right, #f509ae, #c76deb);
+      border: 0;
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 13px;
+      box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+  }
+
+  .forgot {
+    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+    color: #ceb9af !important;
+    text-decoration: none;
+    padding-top: 15px;
+}
