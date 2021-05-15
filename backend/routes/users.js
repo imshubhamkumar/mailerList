@@ -5,7 +5,6 @@ const passport = require('passport');
 const AdminUser = require('../modal/admin');
 const Subscriber = require('../modal/subscribers');
 const nodemailer = require('nodemailer');
-const sendMail = require('sendmail')();
 const {signRefreshToken, ensureAuthenticated} = require('../utilities/authService');
 
 
@@ -19,8 +18,8 @@ router.get('/subscribe', async (req, res) => {
         },
       });
 
-      sendMail({
-        from: 'no-reply@buddyest.com', // sender address
+      transporter.sendMail({
+        from: `Admin <no-reply@buddyest.com>`, // sender address
         to: "imbittuk0@gmail.com", // list of receivers
         subject: "Hello ✔", // Subject line
         html: "<b>Hello world?</b>", // html body
