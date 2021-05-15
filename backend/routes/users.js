@@ -6,8 +6,10 @@ const AdminUser = require('../modal/admin');
 const Subscriber = require('../modal/subscribers');
 const nodemailer = require('nodemailer');
 const sendMail = require('sendmail')();
-const template = require('../view/mailTemplate');
 const {signRefreshToken, ensureAuthenticated} = require('../utilities/authService');
+const handlebars = require('handlebars');
+const fs  = require('fs');
+const path  = require('path');
 
 
 router.get('/subscribe', async (req, res) => {
@@ -16,11 +18,18 @@ router.get('/subscribe', async (req, res) => {
     // for (let i = 0; i < subs.length; i++) {
     //    emailList.push(subs[i].email);
     // }
+    const filePath = path.join(__dirname, '../view/mailTemplate.html');
+    const source = fs.readFileSync(filePath, 'utf-8').toString();
+    const template = handlebars.compile(source);
+    const replacements = {
+        username: "Bittu"
+    };
+    const htmlToSend = template(replacements);
       sendMail({
         from: `Admin <no-reply@buddyest.com>`, // sender address
         to: 'imbittuk0@gmail.com', // list of receivers
         subject: "Welcome on board", // Subject line
-        html: template, // html body
+        html: htmlToSend, // html body
       }, (err, data) => {
           if(err) {
             return res.status(200).json({status: false, data: "Error"})
