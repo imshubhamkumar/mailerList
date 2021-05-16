@@ -21,7 +21,7 @@ router.post('/subscribe', async (req, res) => {
     };
     const htmlToSend = template(replacements);
       sendMail({
-        from: `Admin <no-reply@buddyest.com>`, // sender address
+        from: `Newslatter <no-reply@buddyest.com>`, // sender address
         to: req.body.email, // list of receivers
         subject: "Welcome on board", // Subject line
         html: htmlToSend, // html body
