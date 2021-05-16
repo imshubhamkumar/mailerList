@@ -12,12 +12,7 @@ const fs  = require('fs');
 const path  = require('path');
 
 
-router.get('/subscribe', async (req, res) => {
-    // const subs = await Subscriber.find()
-    // var emailList = [];
-    // for (let i = 0; i < subs.length; i++) {
-    //    emailList.push(subs[i].email);
-    // }
+router.post('/subscribe', async (req, res) => {
     const filePath = path.join(__dirname, '../view/mailTemplate.html');
     const source = fs.readFileSync(filePath, 'utf-8').toString();
     const template = handlebars.compile(source);
@@ -27,16 +22,43 @@ router.get('/subscribe', async (req, res) => {
     const htmlToSend = template(replacements);
       sendMail({
         from: `Admin <no-reply@buddyest.com>`, // sender address
-        to: 'imbittuk0@gmail.com', // list of receivers
+        to: req.body.email, // list of receivers
         subject: "Welcome on board", // Subject line
         html: htmlToSend, // html body
+      }, (err, data) => {
+          if(err) {
+            return res.status(200).json({status: false, message: "Error while adding to subscribe list, please try again latter"})
+          } else {
+            const newUser = new Subscriber(req.body)
+            newUser.save((err, user) => {
+                if (err) {
+                    return res.status(200).json({status: false, message: "Error while adding to subscribe list, please try again latter"})
+                } else {
+                    return res.status(200).json({status: false, message: "You are successfully subscribed for the newslatter"})
+                }
+            })
+          }
+      });
+})
+
+router.post('/sendToAll', ensureAuthenticated, async (req, res) => {
+    const subs = await Subscriber.find()
+    var emailList = [];
+    for (let i = 0; i < subs.length; i++) {
+       emailList.push(subs[i].email);
+    }
+    sendMail({
+        from: `Newslatte admin`, // sender address
+        to: emailList, // list of receivers
+        subject: req.body.subject, // Subject line
+        html: req.body.message, // html body
       }, (err, data) => {
           if(err) {
             return res.status(200).json({status: false, data: "Error"})
           } else {
             return res.status(200).json({status: true, data})
           }
-      });
+      })
 })
 
 router.post('/login', async (req, res, next) => {

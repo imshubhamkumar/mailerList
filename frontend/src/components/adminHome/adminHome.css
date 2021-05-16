@@ -1,5 +1,5 @@
 .mail-card {
-    margin: 10em auto;
+    margin: 2em auto;
     width: 80rem;
 }
 .editorClassName {
@@ -9,12 +9,17 @@
     min-height: 20rem;
 }
 
+.form-control:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 .wrapperClassName {
     border: 0.5px solid #ff80ff;
     padding: 1rem;
 }
 
-.submit {
+.send-mail {
     cursor: pointer;
       border-radius: 5em;
       color: #ffffff !important;
@@ -27,7 +32,28 @@
       padding-top: 10px;
       font-family: 'Ubuntu', sans-serif;
       font-size: 13px;
+      margin-left: 45%;
       box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+  }
+
+  .logout {
+    cursor: pointer;
+    border-radius: 5em;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    background: linear-gradient(to right, #f509ae, #c76deb);
+    border: none;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 13px;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+  }
+
+  .logout:hover {
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04) !important;
   }
 
   .forgot {

@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require("mongoose");
 //const session = require('express-session');
 //const MongoStore = require('connect-mongodb-session')(session);
+const cors = require('cors');
 const app = express()
 const passport = require('passport');
 const http = require('http')
@@ -10,7 +11,7 @@ const env = require('./backend/config/env');
 
 const port = process.env.PORT || 5000;
 
-
+app.use(cors());
 app.use('/login', (req, res) => {
     res.send({
         token: 'test123'
