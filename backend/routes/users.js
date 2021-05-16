@@ -19,6 +19,10 @@ router.post('/subscribe', async (req, res) => {
     const replacements = {
         username: "Bittu"
     };
+    const isExist = await Subscriber.find({email: req.body.email})
+    if (isExist.length > 0) {
+        return res.status(200).json({status: false, message: "This email already exist in our mailing list."})
+    }
     const newUser = new Subscriber(req.body)
             newUser.save((err, user) => {
                 if (err) {
