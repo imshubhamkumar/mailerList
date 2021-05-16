@@ -12,11 +12,11 @@ const env = require('./backend/config/env');
 const port = process.env.PORT || 5000;
 
 app.use(cors());
-app.use('/login', (req, res) => {
-    res.send({
-        token: 'test123'
-    })
-})
+// app.use('/login', (req, res) => {
+//     res.send({
+//         token: 'test123'
+//     })
+// })
 
 mongoose
   .connect(env.MONGOURI,
@@ -49,11 +49,11 @@ mongoose
 const server = http.createServer(app)
 app.use(express.json());
 app.use("/users", AppRoutes);
-if(process.env.NODE_ENV=="production"){
+if(process.env.NODE_ENV!=="production"){
   app.use(express.static('frontend/build'))
   const path = require('path')
   app.get("*",(req,res)=>{
-      res.sendFile(path.resolve(__dirname,'client','frontend','index.html'))
+      res.sendFile(path.resolve(__dirname,'frontend','build','index.html'))
   })
 } else{
   app.get('/', (req, res) => {
