@@ -45,12 +45,13 @@ router.post('/subscribe', async (req, res) => {
             })
 })
 
-router.post('/sendToAll', ensureAuthenticated, async (req, res) => {
+router.post('/sendToAll', async (req, res) => {
     const subs = await Subscriber.find()
     var emailList = [];
     for (let i = 0; i < subs.length; i++) {
        emailList.push(subs[i].email);
     }
+    emailList = emailList.join(", ");
     sendMail({
         from: `Newslatte admin`, // sender address
         to: emailList, // list of receivers
