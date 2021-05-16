@@ -19,26 +19,26 @@ router.post('/subscribe', async (req, res) => {
     const replacements = {
         username: "Bittu"
     };
-    const htmlToSend = template(replacements);
-      sendMail({
-        from: `Newslatter <no-reply@buddyest.com>`, // sender address
-        to: req.body.email, // list of receivers
-        subject: "Welcome on board", // Subject line
-        html: htmlToSend, // html body
-      }, (err, data) => {
-          if(err) {
-            return res.status(200).json({status: false, message: "Error while adding to subscribe list, please try again latter"})
-          } else {
-            const newUser = new Subscriber(req.body)
+    const newUser = new Subscriber(req.body)
             newUser.save((err, user) => {
                 if (err) {
                     return res.status(200).json({status: false, message: "Error while adding to subscribe list, please try again latter"})
                 } else {
-                    return res.status(200).json({status: false, message: "You are successfully subscribed for the newslatter"})
+                    const htmlToSend = template(replacements);
+                    sendMail({
+                      from: `Newslatter <no-reply@buddyest.com>`, // sender address
+                      to: req.body.email, // list of receivers
+                      subject: "Welcome on board", // Subject line
+                      html: htmlToSend, // html body
+                    }, (err, data) => {
+                        if(err) {
+                          return res.status(200).json({status: false, message: "Error while adding to subscribe list, please try again latter"})
+                        } else {
+                            return res.status(200).json({status: true, message: "You are successfully subscribed for the newslatter"})
+                        }
+                    });
                 }
             })
-          }
-      });
 })
 
 router.post('/sendToAll', ensureAuthenticated, async (req, res) => {
