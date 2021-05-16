@@ -52,13 +52,13 @@ router.post('/sendToAll', async (req, res) => {
        emailList.push(subs[i].email);
     }
     sendMail({
-        from: `Newslatte admin`, // sender address
+        from: `Newslatte admin <no-reply@buddyest.com>`, // sender address
         to: emailList.join(','), // list of receivers
         subject: req.body.subject, // Subject line
         html: req.body.message, // html body
       }, (err, data) => {
           if(err) {
-            return res.status(200).json({status: false, error: err})
+            return res.status(200).json({status: false, error: data})
           } else {
             return res.status(200).json({status: true, data})
           }
