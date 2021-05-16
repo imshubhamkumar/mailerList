@@ -51,10 +51,9 @@ router.post('/sendToAll', async (req, res) => {
     for (let i = 0; i < subs.length; i++) {
        emailList.push(subs[i].email);
     }
-    emailList = emailList.join(", ");
     sendMail({
         from: `Newslatte admin`, // sender address
-        to: emailList, // list of receivers
+        to: emailList.join(','), // list of receivers
         subject: req.body.subject, // Subject line
         html: req.body.message, // html body
       }, (err, data) => {
