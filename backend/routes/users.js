@@ -59,7 +59,7 @@ router.post('/sendToAll', async (req, res) => {
         html: req.body.message, // html body
       }, (err, data) => {
           if(err) {
-            return res.status(200).json({status: false, data: "Error"})
+            return res.status(200).json({status: false, error: err})
           } else {
             return res.status(200).json({status: true, data})
           }
